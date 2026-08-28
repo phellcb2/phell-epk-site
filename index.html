@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phell — DJ &amp; Produtor</title>
+<meta name="description" content="Press kit digital de Phell (PH Carvalho) — Indie Dance, House, Nu Disco e Deep House com groove percussivo, direto de Curitiba.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inclined:wght@500;700;800;900&amp;family=Sora:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============ */
+  /* Identidade fechada em preto — combina com as fotos em P&B do Phell,
+     por isso não alterna para tema claro. */
+  :root{
+    --bg: #0B0A0E;
+    --bg-raised: #17141B;
+    --ink: #F5EFEA;
+    --ink-soft: #C9C0C6;
+    --muted: #8D8390;
+    --line: #29242E;
+    --accent: #FF6B3D;       /* coral neon sobre preto */
+    --accent-ink: #1A1015;
+    --accent-2: #8C9CFF;     /* azul frio de contraste */
+    --accent-2-soft: #201D38;
+    --accent-soft: #2E1B14;
+    --shadow: 0 24px 60px -24px rgba(0,0,0,0.75);
+    --radius: 18px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Sora', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:'Big Shoulders Inclined', ui-sans-serif, system-ui, sans-serif;
+    font-weight:800;
+    text-transform:uppercase;
+    text-wrap:balance;
+    margin:0;
+  }
+
+  a{color:inherit;}
+  img{max-width:100%;}
+  .mono{font-family:'Space Mono', ui-monospace, monospace;}
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in srgb, var(--bg) 90%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px;
+    max-width:1120px; margin:0 auto;
+  }
+  .wordmark{
+    font-family:'Big Shoulders Inclined', sans-serif;
+    font-weight:900;
+    font-size:1.4rem;
+    letter-spacing:0.02em;
+  }
+  .nav-links{
+    display:flex; gap:28px; list-style:none; margin:0; padding:0;
+    font-size:0.92rem; font-weight:500;
+  }
+  .nav-links a{
+    text-decoration:none; opacity:0.75; transition:opacity .2s ease;
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--ink); color:var(--bg);
+    padding:9px 18px; border-radius:999px;
+    font-size:0.85rem; font-weight:600; text-decoration:none;
+    white-space:nowrap;
+  }
+  .nav-actions{ display:flex; align-items:center; gap:18px; }
+  .nav-social{ display:flex; align-items:center; gap:12px; }
+  .nav-social a{
+    display:flex; color:var(--ink-soft); opacity:0.7;
+    transition:opacity .2s ease, color .2s ease;
+  }
+  .nav-social a:hover{ opacity:1; color:var(--accent); }
+  @media (max-width:760px){ .nav-links{display:none;} }
+  @media (max-width:480px){ .nav-social{ gap:10px; } }
+
+  /* ============ HERO (photographic) ============ */
+  .hero{
+    position:relative;
+    min-height:min(92vh, 880px);
+    display:flex; align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-bg{ position:absolute; inset:0; z-index:0; background:#0C0A10; }
+  .hero-bg img{
+    width:100%; height:100%; object-fit:cover; object-position:50% 22%;
+    display:block; transform:scale(1);
+    animation:heroZoom 26s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
+  @media (prefers-reduced-motion: reduce){ .hero-bg img{ animation:none; } }
+  .hero-scrim{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(10,8,14,0.10) 0%, rgba(10,8,14,0.42) 58%, rgba(10,8,14,0.93) 100%);
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    max-width:1120px; margin:0 auto;
+    padding:120px 24px 60px;
+    width:100%;
+    color:#F7F1EC;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+    margin-bottom:20px;
+  }
+  .eyebrow::before{
+    content:""; width:8px; height:8px; border-radius:50%;
+    background:var(--accent); display:inline-block;
+  }
+  .hero h1{
+    font-size:clamp(3.8rem, 13vw, 8rem);
+    line-height:0.86;
+    letter-spacing:0.005em;
+  }
+  .hero h1 .accent-word{ color:var(--accent); }
+  .hero-sub{
+    max-width:520px;
+    margin:22px 0 36px;
+    font-size:1.08rem;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:999px;
+    font-weight:600; font-size:0.95rem; text-decoration:none;
+    border:1px solid transparent; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--accent); color:var(--accent-ink); box-shadow:var(--shadow); }
+  .btn-ghost{ background:transparent; border-color:var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  .hero-meta{
+    display:flex; gap:28px; flex-wrap:wrap;
+    font-family:'Space Mono', monospace;
+    font-size:0.76rem; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    padding-top:18px;
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section{ padding:88px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:24px;
+    margin-bottom:48px; flex-wrap:wrap;
+  }
+  .section-label{
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:10px; display:block;
+  }
+  .section-title{ font-size:clamp(2.1rem, 4.4vw, 2.9rem); }
+  .section-note{ max-width:360px; color:var(--muted); font-size:0.92rem; line-height:1.6; font-family:'Sora', sans-serif; text-transform:none; }
+
+  /* ============ BIO ============ */
+  .bio-grid{
+    display:grid; grid-template-columns:300px 1fr; gap:56px; align-items:start;
+  }
+  @media (max-width:760px){ .bio-grid{ grid-template-columns:1fr; } }
+  .bio-art{
+    aspect-ratio:4/5; border-radius:var(--radius); overflow:hidden;
+    box-shadow:var(--shadow); border:1px solid var(--line);
+  }
+  .bio-art img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .bio-text p{
+    font-size:1.08rem; line-height:1.75; color:var(--ink-soft);
+    margin:0 0 20px; max-width:60ch;
+  }
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; margin-top:36px;
+  }
+  @media (max-width:640px){ .stat-row{ grid-template-columns:repeat(2,1fr); } }
+  .stat{ background:var(--bg-raised); padding:22px 18px; }
+  .stat-num{ font-family:'Space Mono', monospace; font-weight:700; font-size:1.5rem; color:var(--accent); font-variant-numeric:tabular-nums; }
+  .stat-label{ font-size:0.8rem; color:var(--muted); margin-top:4px; }
+
+  /* ============ SETS ============ */
+  .note-box{
+    background:var(--accent-2-soft); border:1px solid var(--line);
+    border-radius:14px; padding:16px 20px; margin-bottom:36px;
+    font-size:0.9rem; color:var(--ink-soft); display:flex; gap:12px;
+  }
+  .note-box .tag{
+    font-family:'Space Mono', monospace; font-weight:700; color:var(--accent-2);
+    flex:none;
+  }
+  .tracks{ display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .track{
+    background:var(--bg-raised); display:grid;
+    grid-template-columns:auto 1fr auto; align-items:center; gap:18px;
+    padding:18px 22px; color:var(--ink); transition:background .15s ease;
+  }
+  .track:hover{ background:var(--accent-soft); }
+  @media (max-width:640px){ .track{ grid-template-columns:auto 1fr; row-gap:10px;} .track .track-platform{ grid-column:2; } }
+  .play-dot{
+    width:40px; height:40px; border-radius:50%; background:var(--accent-soft);
+    color:var(--accent); display:flex; align-items:center; justify-content:center;
+    font-size:0.9rem; flex:none;
+  }
+  .track-name{ font-weight:600; }
+  .track-tag{ font-size:0.82rem; color:var(--muted); margin-top:2px; }
+  .track-platform{
+    font-family:'Space Mono', monospace; font-size:0.72rem; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--accent-2); background:var(--accent-2-soft);
+    padding:5px 10px; border-radius:999px;
+  }
+
+  /* ============ GALLERY ============ */
+  .gallery{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;
+  }
+  @media (max-width:760px){ .gallery{ grid-template-columns:repeat(2, 1fr); } }
+  .gal-tile{
+    position:relative; aspect-ratio:4/5; border-radius:14px; overflow:hidden;
+    box-shadow:var(--shadow); border:1px solid var(--line);
+  }
+  .gal-tile img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    display:block; transition:transform .5s ease;
+  }
+  .gal-tile:hover img{ transform:scale(1.05); }
+
+  /* ============ AGENDA ============ */
+  .agenda-table{ width:100%; border-collapse:collapse; }
+  .agenda-table th{
+    text-align:left; font-family:'Space Mono', monospace; font-size:0.72rem;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);
+    padding:0 14px 14px; font-weight:400; border-bottom:1px solid var(--line);
+  }
+  .agenda-table td{
+    padding:20px 14px; border-bottom:1px solid var(--line); font-size:0.96rem;
+  }
+  .agenda-table tr:last-child td{ border-bottom:none; }
+  .agenda-date{ font-family:'Space Mono', monospace; color:var(--accent); font-weight:700; white-space:nowrap; }
+  .agenda-city{ color:var(--muted); font-size:0.85rem; margin-top:3px; }
+  .badge{
+    font-family:'Space Mono', monospace; font-size:0.7rem; text-transform:uppercase;
+    letter-spacing:0.06em; padding:5px 11px; border-radius:999px; white-space:nowrap;
+  }
+  .badge-confirmed{ background:var(--accent-soft); color:var(--accent); }
+  .badge-soon{ background:var(--accent-2-soft); color:var(--accent-2); }
+  .agenda-table td:last-child{ text-align:right; }
+
+  /* ============ CONTACT ============ */
+  .contact{
+    text-align:center;
+    padding:8px 0 0;
+  }
+  .contact .section-label{ display:block; text-align:center; }
+  .contact h2{
+    font-size:clamp(2.2rem, 5.4vw, 3.2rem); color:var(--ink);
+    margin-bottom:18px; max-width:16ch; margin-left:auto; margin-right:auto;
+  }
+  .contact p{ color:var(--ink-soft); max-width:480px; margin:0 auto 36px; line-height:1.6; }
+  .contact-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:40px; }
+  .contact-divider{ border:none; border-top:1px solid var(--line); max-width:220px; margin:0 auto 32px; }
+  .social-row{ display:flex; gap:22px; justify-content:center; font-family:'Space Mono', monospace; font-size:0.85rem; color:var(--muted); }
+  .social-row a{ text-decoration:none; color:var(--ink-soft); opacity:0.85; border-bottom:1px solid var(--line); padding-bottom:2px; }
+  .social-row a:hover{ opacity:1; color:var(--accent); border-color:var(--accent); }
+
+  footer{
+    padding:36px 24px 48px; text-align:center;
+    color:var(--muted); font-size:0.82rem; line-height:1.7;
+  }
+  footer strong{ color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="wordmark">PHELL</div>
+      <ul class="nav-links">
+        <li><a href="#bio">Bio</a></li>
+        <li><a href="#sets">Sets</a></li>
+        <li><a href="#fotos">Fotos</a></li>
+        <li><a href="#agenda">Agenda</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="nav-social">
+          <a href="https://www.instagram.com/phellipcarvalho/" target="_blank" rel="noopener" aria-label="Instagram do Phell">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://soundcloud.com/phellcarvalho" target="_blank" rel="noopener" aria-label="SoundCloud do Phell">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17h11.5a3.5 3.5 0 0 0 .6-6.95A5.5 5.5 0 0 0 7.6 8.4 3.2 3.2 0 0 0 6 17z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/watch?v=sbb2kAFp-FU&amp;t=641s" target="_blank" rel="noopener" aria-label="YouTube do Phell">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.3 9.3l5 2.7-5 2.7z" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+        <a class="nav-cta" href="#contato">Contratar</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-bg"><img src="assets/hero.jpg" alt="Phell nos decks, retrato em preto e branco" loading="eager"></div>
+    <div class="hero-scrim"></div>
+    <div class="hero-inner">
+      <span class="eyebrow">DJ, produtor &amp; baterista</span>
+      <h1><span>PHELL</span><span class="accent-word">.</span></h1>
+      <p class="hero-sub">Energia percussiva e melodias que marcam — Indie Dance, House, Nu Disco e Deep House guiados por quem viveu o palco antes da cabine.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#sets">Ouvir os sets</a>
+        <a class="btn btn-ghost" href="#contato">Contratar para o próximo evento</a>
+      </div>
+      <div class="hero-meta">
+        <span>PH Carvalho · Baseado em Curitiba, PR</span>
+        <span>Indie Dance · House · Nu Disco · Deep House</span>
+        <span>Disponível para shows em todo o Brasil</span>
+      </div>
+    </div>
+  </header>
+
+  <section id="bio">
+    <div class="wrap">
+      <div class="bio-grid">
+        <div class="bio-art"><img src="assets/bio.jpg" alt="Retrato de Phell com fone de ouvido"></div>
+        <div class="bio-text">
+          <span class="section-label">Bio</span>
+          <h2 class="section-title" style="margin-bottom:22px;">Da bateria para os decks</h2>
+          <p>Baterista e produtor há mais de 15 anos de palco, Phell trouxe toda essa vivência musical para trás dos decks. O resultado é uma assinatura sonora que funde Indie Dance, House, Nu Disco e Deep House — sempre com a bateria e a percussão pulsando no centro do set, guiando o groove.</p>
+          <p>Com personalidade forte e presença que contagia a pista, Phell constrói jornadas musicais intensas: melodias marcantes, batidas envolventes e uma energia percussiva que conecta o público em movimento, do primeiro ao último beat.</p>
+          <div class="stat-row">
+            <div class="stat"><div class="stat-num">15+</div><div class="stat-label">anos de palco</div></div>
+            <div class="stat"><div class="stat-num">CTBA</div><div class="stat-label">Curitiba, PR</div></div>
+            <div class="stat"><div class="stat-num">DJ</div><div class="stat-label">produtor &amp; baterista</div></div>
+            <div class="stat"><div class="stat-num">4</div><div class="stat-label">estilos na mistura</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sets">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-label">Sets &amp; lançamentos</span>
+          <h2 class="section-title">O que está tocando agora</h2>
+        </div>
+        <p class="section-note">Quando tiver um link do Spotify, é só me mandar que eu adiciono um terceiro card.</p>
+      </div>
+      <div class="note-box">
+        <span class="tag">NOTA</span>
+        <span>Os dois cards abaixo já apontam pros seus links reais. Quando quiser destacar uma faixa específica em vez do perfil inteiro, me manda o link dela que eu troco.</span>
+      </div>
+      <div class="tracks">
+        <a class="track" href="https://www.youtube.com/watch?v=sbb2kAFp-FU&amp;t=641s" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div class="play-dot">▶</div>
+          <div>
+            <div class="track-name">Set gravado ao vivo</div>
+            <div class="track-tag">Assista no canal do Phell</div>
+          </div>
+          <span class="track-platform">YouTube</span>
+        </a>
+        <a class="track" href="https://soundcloud.com/phellcarvalho" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div class="play-dot">▶</div>
+          <div>
+            <div class="track-name">Faixas &amp; sets no SoundCloud</div>
+            <div class="track-tag">Perfil oficial · @phellcarvalho</div>
+          </div>
+          <span class="track-platform">SoundCloud</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="fotos">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-label">Imagens</span>
+          <h2 class="section-title">Da cabine para o feed</h2>
+        </div>
+        <p class="section-note">Fotos suas, direto dos seus shows. Manda mais quando quiser trocar ou completar a galeria.</p>
+      </div>
+      <div class="gallery" id="gallery">
+        <div class="gal-tile"><img src="assets/gallery-1.jpg" alt="Phell mixando, luz roxa" loading="lazy"></div>
+        <div class="gal-tile"><img src="assets/gallery-2.jpg" alt="Phell nos decks, luz roxa" loading="lazy"></div>
+        <div class="gal-tile"><img src="assets/gallery-3.jpg" alt="Phell tocando ao ar livre, evento Insomnia" loading="lazy"></div>
+        <div class="gal-tile"><img src="assets/gallery-4.jpg" alt="Phell em b2b ao ar livre, evento Insomnia" loading="lazy"></div>
+        <div class="gal-tile"><img src="assets/gallery-5.jpg" alt="Phell tocando à noite, evento Insomnia" loading="lazy"></div>
+        <div class="gal-tile"><img src="assets/gallery-6.jpg" alt="Phell em b2b, evento Insomnia" loading="lazy"></div>
+        <div class="gal-tile"><img src="assets/gallery-7.jpg" alt="Phell mixando, luz vermelha" loading="lazy"></div>
+        <div class="gal-tile"><img src="assets/gallery-8.jpg" alt="Phell nos decks, luz vermelha" loading="lazy"></div>
+        <div class="gal-tile"><img src="assets/gallery-9.jpg" alt="Phell tocando, luz vermelha" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="agenda">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-label">Agenda</span>
+          <h2 class="section-title">Próximas datas</h2>
+        </div>
+        <p class="section-note">Mais uma data fechada? Me manda que eu já atualizo a tabela.</p>
+      </div>
+      <table class="agenda-table">
+        <thead>
+          <tr><th>Data</th><th>Evento</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="agenda-date">12 SET</td>
+            <td>Club Vibe<div class="agenda-city">Curitiba, PR</div></td>
+            <td><span class="badge badge-confirmed">Confirmado</span></td>
+          </tr>
+          <tr>
+            <td class="agenda-date">20 SET</td>
+            <td>Meio (Cross House)<div class="agenda-city">Curitiba, PR</div></td>
+            <td><span class="badge badge-confirmed">Confirmado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="contato" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="contact">
+        <span class="section-label">Booking</span>
+        <h2>Contrate o Phell para o seu evento</h2>
+        <p>Festivais, clubes, rooftops e eventos privados em todo o Brasil. Fale direto com o booking — resposta em até 24h.</p>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="https://wa.me/5541998194026" target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="btn btn-ghost" href="mailto:phellipcb2@gmail.com">phellipcb2@gmail.com</a>
+          <a class="btn btn-ghost" href="https://drive.google.com/drive/folders/1IkcMbUk2M7uwc4mU5MUuv-iqPbkbgeV9?usp=sharing" target="_blank" rel="noopener">Baixar press kit</a>
+        </div>
+        <hr class="contact-divider">
+        <div class="social-row">
+          <a href="https://www.instagram.com/phellipcarvalho/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://soundcloud.com/phellcarvalho" target="_blank" rel="noopener">SoundCloud</a>
+          <a href="https://www.youtube.com/watch?v=sbb2kAFp-FU&amp;t=641s" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2026 Phell (PH Carvalho) — todos os direitos reservados.</div>
+    <div>Quer trocar alguma foto, faixa ou data? É só me mandar por aqui que eu atualizo a página.</div>
+  </footer>
+
+</body>
+</html>
