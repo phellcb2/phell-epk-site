@@ -201,6 +201,20 @@
     font-size:1.08rem; line-height:1.75; color:var(--ink-soft);
     margin:0 0 20px; max-width:60ch;
   }
+  .lang-toggle{
+    display:inline-flex; align-items:center; gap:2px;
+    background:var(--bg-raised); border:1px solid var(--line);
+    border-radius:999px; padding:3px; margin:0 0 22px;
+  }
+  .lang-btn{
+    font-family:'Space Mono', monospace; font-size:0.74rem; letter-spacing:0.06em;
+    font-weight:700; text-transform:uppercase; color:var(--muted);
+    background:transparent; border:none; border-radius:999px;
+    padding:7px 15px; cursor:pointer; transition:background .2s ease, color .2s ease;
+  }
+  .lang-btn:hover{ color:var(--ink-soft); }
+  .lang-btn.is-active{ background:var(--accent); color:var(--accent-ink); }
+  .bio-lang[hidden]{ display:none; }
   .stat-row{
     display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
     background:var(--line); border:1px solid var(--line); border-radius:14px;
@@ -348,9 +362,26 @@
         <div class="bio-text">
           <span class="section-label">Bio</span>
           <h2 class="section-title" style="margin-bottom:22px;">Da bateria para os decks</h2>
-          <p>Sou baterista e produtor há mais de 15 anos de palco, e trouxe toda essa vivência pra trás dos decks. Hoje minha sonoridade funde Indie Dance, House, Nu Disco e Deep House — sempre com a bateria e a percussão no centro do meu set, guiando o groove.</p>
-          <p>Toco com personalidade forte e presença que contagia a pista. Gosto de construir jornadas intensas: melodias marcantes, batidas envolventes e uma energia percussiva que conecta o público em movimento, do primeiro ao último beat.</p>
-          <p>A música sempre foi parte essencial de mim, e meu objetivo é simples: viver dela e por meio dela, levando-a para onde for possível. Hoje vivo um momento de recomeço, voltando com tudo pra produzir, estudar e tocar.</p>
+          <div class="lang-toggle" role="group" aria-label="Idioma da bio">
+            <button type="button" class="lang-btn is-active" data-lang-btn="pt" onclick="setBioLang('pt')">PT</button>
+            <button type="button" class="lang-btn" data-lang-btn="en" onclick="setBioLang('en')">EN</button>
+            <button type="button" class="lang-btn" data-lang-btn="es" onclick="setBioLang('es')">ES</button>
+          </div>
+          <div class="bio-lang" data-lang="pt">
+            <p>Sou baterista e produtor há mais de 15 anos de palco, e trouxe toda essa vivência pra trás dos decks. Hoje minha sonoridade funde Indie Dance, House, Nu Disco e Deep House — sempre com a bateria e a percussão no centro do meu set, guiando o groove.</p>
+            <p>Toco com personalidade forte e presença que contagia a pista. Gosto de construir jornadas intensas: melodias marcantes, batidas envolventes e uma energia percussiva que conecta o público em movimento, do primeiro ao último beat.</p>
+            <p>A música sempre foi parte essencial de mim, e meu objetivo é simples: viver dela e por meio dela, levando-a para onde for possível. Hoje vivo um momento de recomeço, voltando com tudo pra produzir, estudar e tocar.</p>
+          </div>
+          <div class="bio-lang" data-lang="en" hidden>
+            <p>I've been a drummer and producer for over 15 years on stage, and I brought all that experience behind the decks. Today my sound blends Indie Dance, House, Nu Disco and Deep House — always with drums and percussion at the center of my set, driving the groove.</p>
+            <p>I play with strong personality and a presence that moves the crowd. I like building intense journeys: memorable melodies, driving beats and a percussive energy that keeps the audience moving, from the first beat to the last.</p>
+            <p>Music has always been an essential part of who I am, and my goal is simple: to live from it and through it, taking it as far as I can. Right now I'm in a moment of restart, coming back full force to produce, study and play.</p>
+          </div>
+          <div class="bio-lang" data-lang="es" hidden>
+            <p>Soy baterista y productor con más de 15 años de escenario, y traje toda esa vivencia hacia detrás de los platos. Hoy mi sonido fusiona Indie Dance, House, Nu Disco y Deep House — siempre con la batería y la percusión en el centro de mi set, guiando el groove.</p>
+            <p>Toco con personalidad fuerte y una presencia que contagia a la pista. Me gusta construir recorridos intensos: melodías marcantes, ritmos envolventes y una energía percusiva que conecta al público en movimiento, del primer al último beat.</p>
+            <p>La música siempre fue parte esencial de mí, y mi objetivo es simple: vivir de ella y a través de ella, llevándola hasta donde sea posible. Hoy vivo un momento de reinicio, volviendo con todo para producir, estudiar y tocar.</p>
+          </div>
           <div class="stat-row">
             <div class="stat"><div class="stat-num">15+</div><div class="stat-label">anos de palco</div></div>
             <div class="stat"><div class="stat-num">CTBA</div><div class="stat-label">Curitiba, PR</div></div>
@@ -470,6 +501,17 @@
   <footer>
     <div>© 2026 Phell (PH Carvalho) — todos os direitos reservados.</div>
   </footer>
+
+  <script>
+    function setBioLang(lang){
+      document.querySelectorAll('.bio-lang').forEach(function(el){
+        el.hidden = el.getAttribute('data-lang') !== lang;
+      });
+      document.querySelectorAll('.lang-btn').forEach(function(btn){
+        btn.classList.toggle('is-active', btn.getAttribute('data-lang-btn') === lang);
+      });
+    }
+  </script>
 
 </body>
 </html>
