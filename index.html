@@ -110,7 +110,11 @@
     display:flex; align-items:flex-end;
     overflow:hidden;
   }
-  .hero-bg{ position:absolute; inset:0; z-index:0; background:#0C0A10; }
+  /* No celular a foto cobre a tela toda (cover). No PC a gente "afasta a
+     câmera": a foto aparece inteira, sem cortar, ancorada à direita, com
+     um fundo desfocado da própria foto preenchendo o resto — sem esticar
+     nem recortar a imagem original, qualidade preservada. */
+  .hero-bg{ position:absolute; inset:0; z-index:0; background:#0C0A10; overflow:hidden; }
   .hero-bg img{
     width:100%; height:100%; object-fit:cover; object-position:68% 16%;
     display:block; transform:scale(1);
@@ -119,6 +123,21 @@
   }
   @keyframes heroZoom{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
   @media (prefers-reduced-motion: reduce){ .hero-bg img{ animation:none; } }
+  @media (min-width:761px){
+    .hero-bg{ display:flex; justify-content:flex-end; align-items:flex-end; }
+    .hero-bg-blur{
+      position:absolute; inset:0;
+      background-image:url('assets/hero-2.jpg');
+      background-size:cover; background-position:62% 14%;
+      filter:grayscale(1) blur(60px) brightness(0.55);
+      transform:scale(1.2);
+    }
+    .hero-bg img{
+      position:relative; z-index:1;
+      width:auto; max-width:64%; height:100%;
+      object-fit:contain; object-position:bottom right;
+    }
+  }
   .hero-scrim{
     position:absolute; inset:0; z-index:1;
     background:linear-gradient(180deg, rgba(10,8,14,0.10) 0%, rgba(10,8,14,0.42) 58%, rgba(10,8,14,0.93) 100%);
@@ -196,15 +215,8 @@
   .section-title{ font-size:clamp(2.1rem, 4.4vw, 2.9rem); }
 
   /* ============ BIO ============ */
-  .bio-grid{
-    display:grid; grid-template-columns:300px 1fr; gap:56px; align-items:start;
-  }
-  @media (max-width:760px){ .bio-grid{ grid-template-columns:1fr; } }
-  .bio-art{
-    aspect-ratio:4/5; border-radius:var(--radius); overflow:hidden;
-    box-shadow:var(--shadow); border:1px solid var(--line);
-  }
-  .bio-art img{ width:100%; height:100%; object-fit:cover; display:block; }
+  /* Sem foto ao lado — só o texto, mais largo e respirando. */
+  .bio-grid{ max-width:760px; }
   .bio-text p{
     font-size:1.08rem; line-height:1.75; color:var(--ink-soft);
     margin:0 0 20px; max-width:60ch;
@@ -268,20 +280,63 @@
   .embed-frame-audio iframe{ height:420px; }
   @media (max-width:640px){ .embed-frame-audio iframe{ height:360px; } }
 
-  /* ============ GALLERY ============ */
-  .gallery{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;
+  /* ============ GALLERY (carrossel + lightbox) ============ */
+  /* Tira em loop, pequena e animada; para no hover; clica e abre maior
+     por cima do site, com opção de baixar aquela foto específica. */
+  .carousel{ position:relative; overflow:hidden; margin:0 -24px; padding:0 24px; }
+  .carousel::before, .carousel::after{
+    content:""; position:absolute; top:0; bottom:0; width:72px; z-index:2; pointer-events:none;
   }
-  @media (max-width:760px){ .gallery{ grid-template-columns:repeat(2, 1fr); } }
-  .gal-tile{
-    position:relative; aspect-ratio:4/5; border-radius:14px; overflow:hidden;
+  .carousel::before{ left:0; background:linear-gradient(90deg, var(--bg) 10%, transparent 100%); }
+  .carousel::after{ right:0; background:linear-gradient(270deg, var(--bg) 10%, transparent 100%); }
+  .carousel-track{
+    display:flex; gap:14px; width:max-content;
+    animation:carouselScroll 34s linear infinite;
+  }
+  .carousel:hover .carousel-track, .carousel:focus-within .carousel-track{ animation-play-state:paused; }
+  @keyframes carouselScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){ .carousel-track{ animation:none; } }
+  .carousel-item{
+    flex:none; width:220px; aspect-ratio:4/5; border-radius:14px; overflow:hidden;
     box-shadow:var(--shadow); border:1px solid var(--line);
+    padding:0; background:none; cursor:pointer; display:block;
   }
-  .gal-tile img{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-    display:block; transition:transform .5s ease;
+  .carousel-item img{
+    width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease;
   }
-  .gal-tile:hover img{ transform:scale(1.05); }
+  .carousel-item:hover img{ transform:scale(1.06); }
+  @media (max-width:640px){ .carousel-item{ width:160px; } }
+
+  .lightbox{
+    --ink:#F5EFEA; --line:rgba(245,239,234,0.3);
+    position:fixed; inset:0; z-index:100; display:none;
+    align-items:center; justify-content:center; padding:72px 24px;
+    background:rgba(10,9,12,0.94);
+  }
+  .lightbox.is-open{ display:flex; }
+  .lightbox-fig{
+    position:relative; display:flex; flex-direction:column; align-items:center; gap:18px;
+    max-width:min(92vw, 860px);
+  }
+  .lightbox-fig img{
+    max-width:100%; max-height:70vh; border-radius:14px; display:block; object-fit:contain;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,0.6);
+  }
+  .lightbox-close{
+    position:fixed; top:20px; right:24px; z-index:101; background:none; border:none;
+    color:var(--ink); font-size:1.9rem; line-height:1; cursor:pointer; padding:6px;
+  }
+  .lightbox-nav{
+    position:fixed; top:50%; transform:translateY(-50%);
+    background:rgba(255,255,255,0.08); border:1px solid var(--line); color:var(--ink);
+    width:46px; height:46px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:1.3rem;
+  }
+  .lightbox-nav:hover{ background:rgba(255,255,255,0.16); }
+  .lightbox-prev{ left:24px; }
+  .lightbox-next{ right:24px; }
+  @media (max-width:640px){ .lightbox-nav{ display:none; } }
 
   /* ============ AGENDA ============ */
   /* A foto vira a base do bloco: as datas ficam dentro do mesmo painel,
@@ -438,7 +493,10 @@
   </nav>
 
   <header class="hero">
-    <div class="hero-bg"><img src="assets/hero-2.jpg" alt="Phell em estúdio, retrato de costas em preto e branco" loading="eager"></div>
+    <div class="hero-bg">
+      <div class="hero-bg-blur" aria-hidden="true"></div>
+      <img src="assets/hero-2.jpg" alt="Phell em estúdio, retrato de costas em preto e branco" loading="eager">
+    </div>
     <div class="hero-scrim"></div>
     <div class="hero-inner">
       <span class="eyebrow reveal-in" style="animation-delay:.05s">DJ, produtor &amp; baterista
@@ -461,8 +519,7 @@
   <section id="bio">
     <div class="wrap">
       <div class="bio-grid">
-        <div class="bio-art reveal"><img src="assets/bio.jpg" alt="Retrato de Phell com fone de ouvido"></div>
-        <div class="bio-text reveal" style="transition-delay:.1s">
+        <div class="bio-text reveal">
           <span class="section-label">Bio</span>
           <h2 class="section-title" style="margin-bottom:22px;">Da bateria para os decks</h2>
           <div class="lang-toggle" role="group" aria-label="Idioma da bio">
@@ -537,19 +594,41 @@
           <h2 class="section-title">Da cabine para o feed</h2>
         </div>
       </div>
-      <div class="gallery reveal-stagger" id="gallery">
-        <div class="gal-tile"><img src="assets/gallery-1.jpg" alt="Phell mixando, luz roxa" loading="lazy"></div>
-        <div class="gal-tile"><img src="assets/gallery-2.jpg" alt="Phell nos decks, luz roxa" loading="lazy"></div>
-        <div class="gal-tile"><img src="assets/gallery-3.jpg" alt="Phell tocando ao ar livre, evento Insomnia" loading="lazy"></div>
-        <div class="gal-tile"><img src="assets/gallery-4.jpg" alt="Phell em b2b ao ar livre, evento Insomnia" loading="lazy"></div>
-        <div class="gal-tile"><img src="assets/gallery-5.jpg" alt="Phell tocando à noite, evento Insomnia" loading="lazy"></div>
-        <div class="gal-tile"><img src="assets/gallery-6.jpg" alt="Phell em b2b, evento Insomnia" loading="lazy"></div>
-        <div class="gal-tile"><img src="assets/gallery-7.jpg" alt="Phell mixando, luz vermelha" loading="lazy"></div>
-        <div class="gal-tile"><img src="assets/gallery-8.jpg" alt="Phell nos decks, luz vermelha" loading="lazy"></div>
-        <div class="gal-tile"><img src="assets/gallery-9.jpg" alt="Phell tocando, luz vermelha" loading="lazy"></div>
+      <div class="carousel reveal" id="carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <button class="carousel-item" type="button" data-index="0"><img src="assets/gallery-1.jpg" alt="Phell mixando, luz roxa" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="1"><img src="assets/gallery-2.jpg" alt="Phell nos decks, luz roxa" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="2"><img src="assets/gallery-3.jpg" alt="Phell tocando ao ar livre, evento Insomnia" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="3"><img src="assets/gallery-4.jpg" alt="Phell em b2b ao ar livre, evento Insomnia" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="4"><img src="assets/gallery-5.jpg" alt="Phell tocando à noite, evento Insomnia" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="5"><img src="assets/gallery-6.jpg" alt="Phell em b2b, evento Insomnia" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="6"><img src="assets/gallery-7.jpg" alt="Phell mixando, luz vermelha" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="7"><img src="assets/gallery-8.jpg" alt="Phell nos decks, luz vermelha" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="8"><img src="assets/gallery-9.jpg" alt="Phell tocando, luz vermelha" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="0" aria-hidden="true" tabindex="-1"><img src="assets/gallery-1.jpg" alt="" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="1" aria-hidden="true" tabindex="-1"><img src="assets/gallery-2.jpg" alt="" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="2" aria-hidden="true" tabindex="-1"><img src="assets/gallery-3.jpg" alt="" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="3" aria-hidden="true" tabindex="-1"><img src="assets/gallery-4.jpg" alt="" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="4" aria-hidden="true" tabindex="-1"><img src="assets/gallery-5.jpg" alt="" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="5" aria-hidden="true" tabindex="-1"><img src="assets/gallery-6.jpg" alt="" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="6" aria-hidden="true" tabindex="-1"><img src="assets/gallery-7.jpg" alt="" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="7" aria-hidden="true" tabindex="-1"><img src="assets/gallery-8.jpg" alt="" loading="lazy"></button>
+          <button class="carousel-item" type="button" data-index="8" aria-hidden="true" tabindex="-1"><img src="assets/gallery-9.jpg" alt="" loading="lazy"></button>
+        </div>
       </div>
+      <p style="margin:18px 0 0; font-size:0.85rem; color:var(--muted);">Clique em uma foto para ver maior e baixar.</p>
     </div>
   </section>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Fechar">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Foto anterior">&#8249;</button>
+    <div class="lightbox-fig">
+      <img id="lightboxImg" src="" alt="">
+      <a class="btn btn-ghost" id="lightboxDownload" href="#" download>Baixar esta foto</a>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Próxima foto">&#8250;</button>
+  </div>
 
   <section id="agenda">
     <div class="wrap">
@@ -654,6 +733,68 @@
         });
       }, { threshold:0.15, rootMargin:'0px 0px -60px 0px' });
       targets.forEach(function(el){ io.observe(el); });
+    })();
+
+    // Galeria: carrossel clicável + lightbox com opção de baixar a foto.
+    (function(){
+      var photos = [
+        { src:'assets/gallery-1.jpg', alt:'Phell mixando, luz roxa' },
+        { src:'assets/gallery-2.jpg', alt:'Phell nos decks, luz roxa' },
+        { src:'assets/gallery-3.jpg', alt:'Phell tocando ao ar livre, evento Insomnia' },
+        { src:'assets/gallery-4.jpg', alt:'Phell em b2b ao ar livre, evento Insomnia' },
+        { src:'assets/gallery-5.jpg', alt:'Phell tocando à noite, evento Insomnia' },
+        { src:'assets/gallery-6.jpg', alt:'Phell em b2b, evento Insomnia' },
+        { src:'assets/gallery-7.jpg', alt:'Phell mixando, luz vermelha' },
+        { src:'assets/gallery-8.jpg', alt:'Phell nos decks, luz vermelha' },
+        { src:'assets/gallery-9.jpg', alt:'Phell tocando, luz vermelha' }
+      ];
+      var lightbox = document.getElementById('lightbox');
+      if(!lightbox) return;
+      var lbImg = document.getElementById('lightboxImg');
+      var lbDownload = document.getElementById('lightboxDownload');
+      var current = 0;
+      var lastFocused = null;
+
+      function show(){
+        var p = photos[current];
+        lbImg.src = p.src;
+        lbImg.alt = p.alt;
+        lbDownload.href = p.src;
+        lbDownload.setAttribute('download', p.src.split('/').pop());
+      }
+      function openLightbox(index){
+        current = index;
+        lastFocused = document.activeElement;
+        show();
+        lightbox.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('lightboxClose').focus();
+      }
+      function closeLightbox(){
+        lightbox.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if(lastFocused && lastFocused.focus) lastFocused.focus();
+      }
+      function next(){ current = (current + 1) % photos.length; show(); }
+      function prev(){ current = (current - 1 + photos.length) % photos.length; show(); }
+
+      document.querySelectorAll('.carousel-item[data-index]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          openLightbox(parseInt(btn.getAttribute('data-index'), 10));
+        });
+      });
+      document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+      document.getElementById('lightboxNext').addEventListener('click', next);
+      document.getElementById('lightboxPrev').addEventListener('click', prev);
+      lightbox.addEventListener('click', function(e){
+        if(e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', function(e){
+        if(!lightbox.classList.contains('is-open')) return;
+        if(e.key === 'Escape') closeLightbox();
+        if(e.key === 'ArrowRight') next();
+        if(e.key === 'ArrowLeft') prev();
+      });
     })();
   </script>
 
