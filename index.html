@@ -111,8 +111,9 @@
   }
   .hero-bg{ position:absolute; inset:0; z-index:0; background:#0C0A10; }
   .hero-bg img{
-    width:100%; height:100%; object-fit:cover; object-position:50% 22%;
+    width:100%; height:100%; object-fit:cover; object-position:68% 16%;
     display:block; transform:scale(1);
+    filter:grayscale(1) contrast(1.08);
     animation:heroZoom 26s ease-in-out infinite alternate;
   }
   @keyframes heroZoom{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
@@ -244,8 +245,21 @@
   .track-platform{
     font-family:'Space Mono', monospace; font-size:0.72rem; text-transform:uppercase;
     letter-spacing:0.08em; color:var(--accent-2); background:var(--accent-2-soft);
-    padding:5px 10px; border-radius:999px;
+    padding:5px 10px; border-radius:999px; display:inline-block;
   }
+
+  /* ============ EMBEDS (sets, inline players) ============ */
+  .embeds{ display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
+  @media (max-width:760px){ .embeds{ grid-template-columns:1fr; } }
+  .embed-card{ background:var(--bg-raised); border:1px solid var(--line); border-radius:14px; padding:20px 20px 0; overflow:hidden; }
+  .embed-head{ padding-bottom:16px; }
+  .embed-head .track-name{ margin-top:8px; }
+  .embed-frame{ margin:0 -20px; border-top:1px solid var(--line); background:#0C0A10; }
+  .embed-frame iframe{ display:block; width:100%; border:none; }
+  .embed-frame-video{ position:relative; aspect-ratio:16/9; }
+  .embed-frame-video iframe{ position:absolute; inset:0; height:100%; }
+  .embed-frame-audio iframe{ height:420px; }
+  @media (max-width:640px){ .embed-frame-audio iframe{ height:360px; } }
 
   /* ============ GALLERY ============ */
   .gallery{
@@ -282,6 +296,10 @@
   .badge-confirmed{ background:var(--accent-soft); color:var(--accent); }
   .badge-soon{ background:var(--accent-2-soft); color:var(--accent-2); }
   .agenda-table td:last-child, .agenda-table th:last-child{ text-align:right; }
+  .agenda-grid{ display:grid; grid-template-columns:1fr 300px; gap:56px; align-items:start; }
+  @media (max-width:760px){ .agenda-grid{ grid-template-columns:1fr; } .agenda-photo{ max-width:280px; margin:0 auto; order:-1; } }
+  .agenda-photo{ aspect-ratio:4/5; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--line); }
+  .agenda-photo img{ width:100%; height:100%; object-fit:cover; display:block; object-position:50% 12%; filter:grayscale(1) contrast(1.05); }
 
   /* ============ CONTACT ============ */
   .contact{
@@ -337,7 +355,7 @@
   </nav>
 
   <header class="hero">
-    <div class="hero-bg"><img src="assets/hero.jpg" alt="Phell nos decks, retrato em preto e branco" loading="eager"></div>
+    <div class="hero-bg"><img src="assets/hero-2.jpg" alt="Phell em estúdio, retrato de costas em preto e branco" loading="eager"></div>
     <div class="hero-scrim"></div>
     <div class="hero-inner">
       <span class="eyebrow">DJ, produtor &amp; baterista</span>
@@ -401,23 +419,27 @@
           <h2 class="section-title">O que está tocando agora</h2>
         </div>
       </div>
-      <div class="tracks">
-        <a class="track" href="https://www.youtube.com/watch?v=sbb2kAFp-FU&amp;t=641s" target="_blank" rel="noopener" style="text-decoration:none;">
-          <div class="play-dot">▶</div>
-          <div>
+      <div class="embeds">
+        <div class="embed-card">
+          <div class="embed-head">
+            <span class="track-platform">YouTube</span>
             <div class="track-name">Set gravado ao vivo</div>
-            <div class="track-tag">Assista no canal do Phell</div>
+            <div class="track-tag">Direto do canal do Phell</div>
           </div>
-          <span class="track-platform">YouTube</span>
-        </a>
-        <a class="track" href="https://soundcloud.com/phellcarvalho" target="_blank" rel="noopener" style="text-decoration:none;">
-          <div class="play-dot">▶</div>
-          <div>
-            <div class="track-name">Faixas &amp; sets no SoundCloud</div>
+          <div class="embed-frame embed-frame-video">
+            <iframe src="https://www.youtube.com/embed/sbb2kAFp-FU?start=641" title="Set gravado ao vivo — Phell no YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="embed-card">
+          <div class="embed-head">
+            <span class="track-platform">SoundCloud</span>
+            <div class="track-name">Faixas &amp; sets</div>
             <div class="track-tag">Perfil oficial · @phellcarvalho</div>
           </div>
-          <span class="track-platform">SoundCloud</span>
-        </a>
+          <div class="embed-frame embed-frame-audio">
+            <iframe src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/phellcarvalho&amp;color=%23ff6b3d&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true" title="Faixas e sets de Phell no SoundCloud" loading="lazy" scrolling="no" frameborder="no" allow="autoplay"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -452,33 +474,36 @@
           <h2 class="section-title">Próximas datas</h2>
         </div>
       </div>
-      <table class="agenda-table">
-        <thead>
-          <tr><th>Data</th><th>Evento</th><th>Status</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="agenda-date">09 OUT</td>
-            <td>Pulse by Synth Flow<div class="agenda-city">Meio, Curitiba PR</div></td>
-            <td><span class="badge badge-confirmed">Confirmado</span></td>
-          </tr>
-          <tr>
-            <td class="agenda-date">31 OUT</td>
-            <td>12Afters (Edição Solomun)<div class="agenda-city">Dobrucki, Curitiba PR</div></td>
-            <td><span class="badge badge-confirmed">Confirmado</span></td>
-          </tr>
-          <tr>
-            <td class="agenda-date">21 NOV</td>
-            <td>Noxum<div class="agenda-city">Meio, Curitiba PR</div></td>
-            <td><span class="badge badge-confirmed">Confirmado</span></td>
-          </tr>
-          <tr>
-            <td class="agenda-date">12 DEZ</td>
-            <td>Yolo Festival<div class="agenda-city">Curitiba, PR</div></td>
-            <td><span class="badge badge-soon">A confirmar</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="agenda-grid">
+        <table class="agenda-table">
+          <thead>
+            <tr><th>Data</th><th>Evento</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="agenda-date">09 OUT</td>
+              <td>Pulse by Synth Flow<div class="agenda-city">Meio, Curitiba PR</div></td>
+              <td><span class="badge badge-confirmed">Confirmado</span></td>
+            </tr>
+            <tr>
+              <td class="agenda-date">31 OUT</td>
+              <td>12Afters (Edição Solomun)<div class="agenda-city">Dobrucki, Curitiba PR</div></td>
+              <td><span class="badge badge-confirmed">Confirmado</span></td>
+            </tr>
+            <tr>
+              <td class="agenda-date">21 NOV</td>
+              <td>Noxum<div class="agenda-city">Meio, Curitiba PR</div></td>
+              <td><span class="badge badge-confirmed">Confirmado</span></td>
+            </tr>
+            <tr>
+              <td class="agenda-date">12 DEZ</td>
+              <td>Yolo Festival<div class="agenda-city">Curitiba, PR</div></td>
+              <td><span class="badge badge-soon">A confirmar</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="agenda-photo"><img src="assets/profile-2.jpg" alt="Phell em estúdio, retrato de perfil em preto e branco" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
